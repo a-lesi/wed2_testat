@@ -1,0 +1,25 @@
+<html>
+    <header>
+        <div>
+            <form action="/edit">
+                <input type="submit" value="Create new Note" />
+            </form>
+            <button>White Mode</button>
+            <button>Dark Mode</button>
+        </div>
+        <div>
+            <button>By finish Date</button><button>By created Date</button><button>By Importance</button><button>Show finished</button>
+        </div>
+    </header>
+    <main>
+        {{#each this}}
+            <div>
+                <input type="checkbox" id="finished" name="finished" value="finished">
+                <label for="finished"> Finished</label><br>
+                <label for="title"> {{this.title}}</label>
+                <textarea id="text" name="text" cols="35" rows="2">{{this.description}}</textarea>
+                <button>Edit</button>
+            </div>
+        {{/each}}
+    </main>
+</html>
