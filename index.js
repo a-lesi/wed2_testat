@@ -3,12 +3,13 @@ import bodyParser from 'body-parser';
 import hbs from 'express-hbs';
 import path from 'path';
 import {indexRoutes} from './routes/indexRoutes.js';
+import {registerHelpers} from './utils/handlebar-util.js'
 
 const app = express();
 app.engine('hbs', hbs.express4());
 app.set('view engine', 'hbs');
 app.set('views', path.resolve('views'));
-//registerHelpers(hbs);
+registerHelpers(hbs);
 
 const router = express.Router();
 

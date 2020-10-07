@@ -1,11 +1,11 @@
 <html>
-    <form method="post">
+    <form method="post" >
         <label for="title">Title</label>
-        <input type="text" id="title" name="title"><br>
+        <input type="text" id="title" name="title" value={{this.title}}><br>
         <label for="description">Beschreibung</label>
-        <input type="text" id="description" name="description"><br><br>
+        <input type="text" id="description" name="description" value={{this.description}}><br><br>
         <label for="importance">Wichtigkeit</label>
-        <select name = "importance">
+        <select id ="importance" name = "importance">
             <option value = 1 >1</option>
             <option value = 2 >2</option>
             <option value = 3 >3</option>
@@ -13,10 +13,14 @@
             <option value = 5 >5</option>
         </select>
         <label for="todoDate">Erledigt bis:</label>
-        <input type="date" id="start" name="todoDate"
-               value="2020-10-06">
-
+        {{#if this.endDate}}
+            <input type="date" id="todoDate" name="todoDate" value={{this.endDate}} />
+        {{else}}
+            <input type="date" id="todoDate" name="todoDate" value={{this.today}} />
+        {{/if}}
+        <label for="finished"> Erledigt</label>
+        <input type="checkbox" id="finished" {{#if this.finished}} checked {{/if}} onclick="window.location='/edit/{{this._id}}/finished';">
         <input type="submit" value="Speichern" />
-        <button>Cancel</button>
+        <input type="button" name="cancel" value="cancel" onclick="window.location='/';" />
     </form>
 </html>

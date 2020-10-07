@@ -2,12 +2,12 @@ import Datastore from 'nedb-promise'
 
 
 class Note {
-    constructor(title, description, importance, endDate) {
+    constructor(title, description, importance, endDate, createdDate) {
         this.title = title;
         this.description = description;
         this.importance = importance;
         this.endDate = endDate;
-        this.createdDate = "2020-10-06"; //todo: dynamisches created Date
+        this.createdDate = createdDate;
         this.finished = false;
     }
 }
@@ -17,21 +17,22 @@ export class NoteStore {
         this.db = new Datastore({ filename: './data/note.db', autoload: true });
     }
 
-    async add(title, description, importance, endDate, callback) {
-        let note = new Note(title, description, importance, endDate);
+    async add(title, description, importance, endDate, createdDate) {
+        let note = new Note(title, description, importance, endDate, createdDate);
         return this.db.insert(note);
     }
 
-    edit(id) {
-
+    async edit(id, title, description, importance, endDate) {
+        this.db.update({ _id: id }, { $set: { title: title, description: description, importance: importance, endDate: endDate}});
     }
 
-    finish(id) {
-
+    async finish(id) {
+        let note = await this.get(id);
+        this.db.update({ _id: id}, { $set: {finished: !note.finished}})
     }
 
-    get(id) {
-
+    async get(id) {
+        return this.db.findOne({_id: id})
     }
 
     async all() {
