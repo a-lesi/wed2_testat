@@ -2,8 +2,8 @@ import {noteStore} from '../services/noteStore.js'
 
 export class NotesController {
     async createNote(req, res) {
-        let today = getToDate();
-        await noteStore.add(req.body.title, req.body.description, req.body.importance, req.body.todoDate, today);
+        let creationDate = getToDate();
+        await noteStore.add(req.body.title, req.body.description, req.body.importance, req.body.todoDate, creationDate, req.body.finished === 'on');
         this.showNotes(req, res)
     }
 
@@ -20,17 +20,9 @@ export class NotesController {
     }
 
     async editNote(req, res) {
-        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.todoDate)
+        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.todoDate, req.body.finished === 'on');
         this.showNotes(req, res)
     }
-
-    async changeFinished(req, res) {
-        console.log(req.body);
-        await noteStore.finish(req.params.id);
-
-        this.showNotes(req, res)
-    }
-
 }
 
 function getToDate() {

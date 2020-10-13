@@ -6,11 +6,11 @@
         <input type="text" id="description" name="description" value={{this.description}}><br><br>
         <label for="importance">Wichtigkeit</label>
         <select id ="importance" name = "importance">
-            <option value = 1 >1</option>
-            <option value = 2 >2</option>
-            <option value = 3 >3</option>
-            <option value = 4 >4</option>
-            <option value = 5 >5</option>
+            <option value = 1 {{#if (check_importance this.importance 1)}} selected="selected" {{/if}}>1</option>
+            <option value = 2 {{#if (check_importance this.importance 2)}} selected="selected" {{/if}}>2</option>
+            <option value = 3 {{#if (check_importance this.importance 3)}} selected="selected" {{/if}}>3</option>
+            <option value = 4 {{#if (check_importance this.importance 4)}} selected="selected" {{/if}}>4</option>
+            <option value = 5 {{#if (check_importance this.importance 5)}} selected="selected" {{/if}}>5</option>
         </select>
         <label for="todoDate">Erledigt bis:</label>
         {{#if this.endDate}}
@@ -19,7 +19,7 @@
             <input type="date" id="todoDate" name="todoDate" value={{this.today}} />
         {{/if}}
         <label for="finished"> Erledigt</label>
-        <input type="checkbox" id="finished" {{#if this.finished}} checked {{/if}} onclick="window.location='/edit/{{this._id}}/finished';">
+        <input type="checkbox" id="finished" name="finished" {{#if this.finished}} checked {{/if}}>
         <input type="submit" value="Speichern" />
         <input type="button" name="cancel" value="cancel" onclick="window.location='/';" />
     </form>

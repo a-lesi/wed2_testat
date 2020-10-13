@@ -6,4 +6,8 @@ export function registerHelpers(hbs) {
         }
         return prettyImportance;
     });
+
+    hbs.registerHelper('check_importance', function(importance, value) {
+        return Number(importance) === value;
+    })
 }
