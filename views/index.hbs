@@ -1,14 +1,29 @@
 <html>
     <header>
         <div>
-            <form action="/edit">
+            <form action="/createNote">
                 <input type="submit" value="Create new Note" />
             </form>
-            <button>White Mode</button>
-            <button>Dark Mode</button>
+            <form action="/?theme=white" method="post">
+                <input type="submit" value="White Mode" />
+            </form>
+            <form action="/?theme=dark" method="post">
+                <input type="submit" value="Dark Mode" />
+            </form>
         </div>
         <div>
-            <button>By finish Date</button><button>By created Date</button><button>By Importance</button><button>Show finished</button>
+            <form action="/?sortBy=finishDate" method="post">
+                <input type="submit" value="By finish Date" />
+            </form>
+            <form action="/?sortBy=createdDate" method="post">
+                <input type="submit" value="By created Date" />
+            </form>
+            <form action="/?sortBy=importance" method="post">
+                <input type="submit" value="By Importance" />
+            </form>
+            <form action="/?withFinished=set" method="post">
+                <input type="submit" value="Show finished" />
+            </form>
         </div>
     </header>
     <main>
@@ -19,6 +34,7 @@
                     <label for="finished"> Finished</label><br>
                     <label for="title"> {{this.title}}</label>
                     <span>{{pretty_importance this.importance}}</span>
+                    <span>{{this.createdDate}}</span>
                     <textarea id="text" name="text" cols="35" rows="2">{{this.description}}</textarea>
                     <input type="submit" value="Edit" />
                 </form>

@@ -14,9 +14,9 @@
         </select>
         <label for="todoDate">Erledigt bis:</label>
         {{#if this.endDate}}
-            <input type="date" id="todoDate" name="todoDate" value={{this.endDate}} />
+            <input type="date" id="todoDate" name="endDate" value={{dateFormat this.endDate}} />
         {{else}}
-            <input type="date" id="todoDate" name="todoDate" value={{this.today}} />
+            <input type="date" id="todoDate" name="endDate" value={{dateFormat this.today}} />
         {{/if}}
         <label for="finished"> Erledigt</label>
         <input type="checkbox" id="finished" name="finished" {{#if this.finished}} checked {{/if}}>
