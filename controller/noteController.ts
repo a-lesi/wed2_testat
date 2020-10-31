@@ -10,13 +10,13 @@ export class NotesController {
 
     async showAllNotes(req, res) {
         if (req.session.sortBy === "finishDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.withFinished)});
+            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll)});
         } else if (req.session.sortBy === "createdDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.withFinished)});
+            res.render("index", {"allNotes": await noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll)});
         } else if (req.session.sortBy === "importance") {
-            res.render("index", {"allNotes": await noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.withFinished)});
+            res.render("index", {"allNotes": await noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll)});
         } else {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(true, req.session.withFinished)});
+            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(true, req.session.showAll)});
         }
     }
 
@@ -30,8 +30,9 @@ export class NotesController {
             }
         } else if (req.body.theme) {
             req.session.theme = req.query.theme
-        } else if (req.body.withFinished) {
-            req.session.withFinished = !req.session.withFinished
+        } else if (req.body.showAll) {
+            req.session.showAll = !req.session.showAll
+
         }
         this.showAllNotes(req, res)
     }
@@ -45,7 +46,7 @@ export class NotesController {
     }
 
     async editNote(req, res) {
-        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.endDate, req.body.finished === 'on');
+        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
         this.showAllNotes(req, res)
     }
 }

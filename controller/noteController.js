@@ -18,16 +18,16 @@ export class NotesController {
     showAllNotes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             if (req.session.sortBy === "finishDate") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.withFinished) });
+                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll) });
             }
             else if (req.session.sortBy === "createdDate") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.withFinished) });
+                res.render("index", { "allNotes": yield noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll) });
             }
             else if (req.session.sortBy === "importance") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.withFinished) });
+                res.render("index", { "allNotes": yield noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll) });
             }
             else {
-                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(true, req.session.withFinished) });
+                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(true, req.session.showAll) });
             }
         });
     }
@@ -45,8 +45,8 @@ export class NotesController {
             else if (req.body.theme) {
                 req.session.theme = req.query.theme;
             }
-            else if (req.body.withFinished) {
-                req.session.withFinished = !req.session.withFinished;
+            else if (req.body.showAll) {
+                req.session.showAll = !req.session.showAll;
             }
             this.showAllNotes(req, res);
         });
@@ -63,7 +63,7 @@ export class NotesController {
     }
     editNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, req.body.endDate, req.body.finished === 'on');
+            yield noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
             this.showAllNotes(req, res);
         });
     }

@@ -13,11 +13,7 @@
                 </form>
                 <form action="/" method="post">
                     <input type="hidden" name="theme" value="white">
-                    <input class="button" type="submit" value="White Mode" />
-                </form>
-                <form action="/" method="post">
-                    <input type="hidden" name="theme" value="dark">
-                    <input class="button" type="submit" value="Dark Mode" />
+                    <input class="button" type="submit" value="Switch Style" />
                 </form>
             </div>
 
@@ -45,18 +41,18 @@
                 <article>
                     <form action="/edit/{{this._id}}" method="get">
                         <header>
-                            <label>finish date {{this.finishDate}}</label>
+                            <label>{{dateFormat this.endDate}}</label>
                             <label for="text"> {{this.title}}</label>
                             <div class="rating">
                                 <label>{{pretty_importance this.importance}}</label>
                             </div>
                         </header>
-                        <div class="content">
-                            <label>
+                        <div class="note-content">
+                            <div>
                                 <input type="checkbox" id="finished" name="finished" disabled {{#if this.finished}} checked {{/if}}>
                                 <label for="finished"> Finished</label>
-                            </label>
-                            <textarea id="text" name="text" cols="35" rows="2">{{this.description}}</textarea>
+                            </div>
+                            <textarea id="text" name="text" cols="35" rows="2" readonly>{{this.description}}</textarea>
                             <input class="button" type="submit" value="Edit" />
                         </div>
                     </form>

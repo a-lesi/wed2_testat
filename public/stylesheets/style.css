@@ -1,12 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* General */
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+header {
+    background: #757474;
+    padding: 1rem;
+}
+
+main {
+    padding: 2rem 1rem;
+}
+
+.button {
+    padding: 0.5rem;
+    background: #cbcbcb;
+    border: none;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),0 4px 15px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 0.3rem;
+    margin: 0.5rem;
+    outline: none;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2rem;
+}
+
+textarea, input[type=date], select, .note-content > div {
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+}
+
+/* Toolbar */
 .toolbar > form {
     display: flex;
     flex-flow: column;
 }
 
+/* Notes */
 article{
     margin-bottom: 2em;
     border: 1px solid #565050;
@@ -15,7 +51,7 @@ article{
 }
 
 article header {
-    background: #4c4c4c;
+/*    background: #4c4c4c;*/
     color: #FFF;
     padding: 1rem;
     display: flex;
@@ -31,27 +67,42 @@ article header > .rating {
     text-align: right;
 }
 
-article > form > .content {
+article > form > .note-content {
     display: flex;
     flex-flow: column;
 }
 
-article > form > .content > label, textarea {
-    padding: 0.5rem;
-    margin: 0 .5rem;
-    border-radius: 0.3rem;
+.note-content > textarea {
+    margin: 0.5rem;
 }
 
-.button {
-    padding: 0.5rem;
-    background: #cbcbcb;
-    border: none;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18),0 4px 15px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 0.3rem;
-    margin: 0.5rem;
-    outline: none;
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 2rem;
+/* edit Note*/
+section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+@media all and (min-width: 70em) {
+    .toolbar {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+    }
+    .toolbar > form:last-child {
+        margin-left:auto;
+    }
+
+    article > form > .note-content {
+        display: flex;
+        flex-flow: row;
+    }
+
+    article > form textarea {
+        flex: 2;
+    }
+
+    .button {
+        min-width: 15rem;
+    }
 }
