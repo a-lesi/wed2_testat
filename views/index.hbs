@@ -47,7 +47,9 @@
                             <label>{{dateFormat this.endDate}}</label>
                             <label for="text"> {{this.title}}</label>
                             <div class="rating">
-                                <label>{{pretty_importance this.importance}}</label>
+                                {{#times this.importance}}
+                                    <span class="star"></span>
+                                {{/times}}
                             </div>
                         </header>
                         <div class="note-content">
