@@ -105,4 +105,18 @@ section {
     .button {
         min-width: 15rem;
     }
+
+    section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    section label {
+        min-width: 15rem;
+    }
+
+    textarea, select, input[type=date] {
+        width: 100%;
+    }
 }
