@@ -10,13 +10,13 @@ export class NotesController {
 
     async showAllNotes(req, res) {
         if (req.session.sortBy === "finishDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll)});
+            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
         } else if (req.session.sortBy === "createdDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll)});
+            res.render("index", {"allNotes": await noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
         } else if (req.session.sortBy === "importance") {
-            res.render("index", {"allNotes": await noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll)});
+            res.render("index", {"allNotes": await noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
         } else {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(true, req.session.showAll)});
+            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(true, req.session.showAll), "altTheme": req.session.altTheme});
         }
     }
 
@@ -25,23 +25,22 @@ export class NotesController {
             if (req.session.sortBy === req.body.sortBy) {
                 req.session.sortAscending = !req.session.sortAscending
             } else {
-                req.session.sortBy = req.body.sortBy
-                req.session.sortAscending = true
+                req.session.sortBy = req.body.sortBy;
+                req.session.sortAscending = true;
             }
-        } else if (req.body.theme) {
-            req.session.theme = req.query.theme
+        } else if (req.body.altTheme) {
+            req.session.altTheme = !req.session.altTheme;
         } else if (req.body.showAll) {
-            req.session.showAll = !req.session.showAll
-
+            req.session.showAll = !req.session.showAll;
         }
         this.showAllNotes(req, res)
     }
 
     async showNote(req, res) {
         if (req.params.id) {
-            res.render("createNote", await noteStore.get(req.params.id));
+            res.render("createNote", {"note": await noteStore.get(req.params.id), "altTheme": req.session.altTheme});
         } else {
-            res.render("createNote", {"today": new Date()});
+            res.render("createNote", {"today": new Date(), "altTheme": req.session.altTheme});
         }
     }
 

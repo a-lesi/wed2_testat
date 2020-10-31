@@ -1,45 +1,52 @@
 <html lang="de">
     <head>
-        <title>{{title}}</title>
+        <title>Notizen</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel='stylesheet' href='/stylesheets/style.css'/>
+        {{#if altTheme}}
+            <link rel='stylesheet' href='/stylesheets/altStyle.css'/>
+        {{/if}}
     </head>
     <header>
-        <h1>Neues ToDo</h1>
+        {{#if note.title}}
+            <h1>Edit {{note.title}}</h1>
+        {{else}}
+            <h1>Neues ToDo</h1>
+        {{/if}}
     </header>
     <body>
     <main>
         <form method="post" >
             <section>
                 <label for="title">Title</label>
-                <textarea id="title" name="title">{{this.title}}</textarea>
+                <textarea id="title" name="title">{{note.title}}</textarea>
             </section>
             <section>
                 <label for="description">Beschreibung</label>
-                <textarea id="description" name="description">{{this.description}}</textarea>
+                <textarea id="description" name="description">{{note.description}}</textarea>
             </section>
             <section>
                 <label for="importance">Wichtigkeit</label>
                 <select id ="importance" name = "importance">
-                    <option value = 1 {{#if (check_importance this.importance 1)}} selected="selected" {{/if}}>1</option>
-                    <option value = 2 {{#if (check_importance this.importance 2)}} selected="selected" {{/if}}>2</option>
-                    <option value = 3 {{#if (check_importance this.importance 3)}} selected="selected" {{/if}}>3</option>
-                    <option value = 4 {{#if (check_importance this.importance 4)}} selected="selected" {{/if}}>4</option>
-                    <option value = 5 {{#if (check_importance this.importance 5)}} selected="selected" {{/if}}>5</option>
+                    <option value = 1 {{#if (check_importance note.importance 1)}} selected="selected" {{/if}}>1</option>
+                    <option value = 2 {{#if (check_importance note.importance 2)}} selected="selected" {{/if}}>2</option>
+                    <option value = 3 {{#if (check_importance note.importance 3)}} selected="selected" {{/if}}>3</option>
+                    <option value = 4 {{#if (check_importance note.importance 4)}} selected="selected" {{/if}}>4</option>
+                    <option value = 5 {{#if (check_importance note.importance 5)}} selected="selected" {{/if}}>5</option>
                 </select>
             </section>
             <section>
                 <label for="todoDate">Erledigt bis:</label>
-                {{#if this.endDate}}
-                    <input type="date" id="todoDate" name="endDate" value={{dateFormat this.endDate}} />
+                {{#if note.endDate}}
+                    <input type="date" id="todoDate" name="endDate" value={{dateFormat note.endDate}} />
                 {{else}}
                     <input type="date" id="todoDate" name="endDate" value={{dateFormat this.today}} />
                 {{/if}}
             </section>
             <section>
                 <div>
-                    <input type="checkbox" id="finished" name="finished" {{#if this.finished}} checked {{/if}}>
+                    <input type="checkbox" id="finished" name="finished" {{#if note.finished}} checked {{/if}}>
                     <label for="finished"> Erledigt</label>
                 </div>
             </section>

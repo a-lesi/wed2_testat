@@ -1,9 +1,12 @@
 <html lang="de">
     <head>
-        <title>{{title}}</title>
+        <title>Notizen</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel='stylesheet' href='/stylesheets/style.css'/>
+        {{#if altTheme}}
+            <link rel='stylesheet' href='/stylesheets/altStyle.css'/>
+        {{/if}}
     </head>
     <body>
         <header>
@@ -12,7 +15,7 @@
                     <input class="button" type="submit" value="Create new Note" />
                 </form>
                 <form action="/" method="post">
-                    <input type="hidden" name="theme" value="white">
+                    <input type="hidden" name="altTheme" value="true">
                     <input class="button" type="submit" value="Switch Style" />
                 </form>
             </div>
