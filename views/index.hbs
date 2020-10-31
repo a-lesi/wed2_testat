@@ -1,44 +1,67 @@
-<html>
-    <header>
-        <div>
-            <form action="/createNote">
-                <input type="submit" value="Create new Note" />
-            </form>
-            <form action="/?theme=white" method="post">
-                <input type="submit" value="White Mode" />
-            </form>
-            <form action="/?theme=dark" method="post">
-                <input type="submit" value="Dark Mode" />
-            </form>
-        </div>
-        <div>
-            <form action="/?sortBy=finishDate" method="post">
-                <input type="submit" value="By finish Date" />
-            </form>
-            <form action="/?sortBy=createdDate" method="post">
-                <input type="submit" value="By created Date" />
-            </form>
-            <form action="/?sortBy=importance" method="post">
-                <input type="submit" value="By Importance" />
-            </form>
-            <form action="/?withFinished=set" method="post">
-                <input type="submit" value="Show finished" />
-            </form>
-        </div>
-    </header>
-    <main>
-        {{#each this.allNotes}}
-            <div>
-                <form action="/edit/{{this._id}}" method="get">
-                    <input type="checkbox" id="finished" name="finished" value="finished" disabled="disabled" {{#if this.finished}} checked {{/if}}>
-                    <label for="finished"> Finished</label><br>
-                    <label for="title"> {{this.title}}</label>
-                    <span>{{pretty_importance this.importance}}</span>
-                    <span>{{this.createdDate}}</span>
-                    <textarea id="text" name="text" cols="35" rows="2">{{this.description}}</textarea>
-                    <input type="submit" value="Edit" />
+<html lang="de">
+    <head>
+        <title>{{title}}</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel='stylesheet' href='/stylesheets/style.css'/>
+    </head>
+    <body>
+        <header>
+            <div class="toolbar">
+                <form action="/createNote" method="get">
+                    <input class="button" type="submit" value="Create new Note" />
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="theme" value="white">
+                    <input class="button" type="submit" value="White Mode" />
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="theme" value="dark">
+                    <input class="button" type="submit" value="Dark Mode" />
                 </form>
             </div>
-        {{/each}}
-    </main>
+
+            <div class="toolbar">
+                <form action="/" method="post">
+                    <input type="hidden" name="sortBy" value="finishDate">
+                    <input class="button" type="submit" value="By finish Date" />
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="sortBy" value="createdDate">
+                    <input class="button" type="submit" value="By created Date" />
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="sortBy" value="importance">
+                    <input class="button" type="submit" value="By Importance" />
+                </form>
+                <form action="/" method="post">
+                    <input type="hidden" name="showAll" value="true">
+                    <input class="button" type="submit" value="Show finished" />
+                </form>
+            </div>
+        </header>
+        <main>
+            {{#each this.allNotes}}
+                <article>
+                    <form action="/edit/{{this._id}}" method="get">
+                        <header>
+                            <label>finish date {{this.finishDate}}</label>
+                            <label for="text"> {{this.title}}</label>
+                            <div class="rating">
+                                <label>{{pretty_importance this.importance}}</label>
+                            </div>
+                        </header>
+                        <div class="content">
+                            <label>
+                                <input type="checkbox" id="finished" name="finished" disabled {{#if this.finished}} checked {{/if}}>
+                                <label for="finished"> Finished</label>
+                            </label>
+                            <textarea id="text" name="text" cols="35" rows="2">{{this.description}}</textarea>
+                            <input class="button" type="submit" value="Edit" />
+                        </div>
+                    </form>
+                </article>
+            {{/each}}
+        </main>
+    </body>
 </html>

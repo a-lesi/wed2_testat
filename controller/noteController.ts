@@ -1,6 +1,8 @@
 import {noteStore} from '../services/noteStore.js'
+import {sessionConfigurator} from "../utils/configurator";
 
 export class NotesController {
+    sessionConfigurator;
     async createNote(req, res) {
         await noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
         this.showAllNotes(req, res)
@@ -19,16 +21,16 @@ export class NotesController {
     }
 
     async setSessionInfos(req, res) {
-        if (req.query.sortBy) {
-            if (req.session.sortBy === req.query.sortBy) {
+        if (req.body.sortBy) {
+            if (req.session.sortBy === req.body.sortBy) {
                 req.session.sortAscending = !req.session.sortAscending
             } else {
-                req.session.sortBy = req.query.sortBy
+                req.session.sortBy = req.body.sortBy
                 req.session.sortAscending = true
             }
-        } else if (req.query.theme) {
+        } else if (req.body.theme) {
             req.session.theme = req.query.theme
-        } else if (req.query.withFinished) {
+        } else if (req.body.withFinished) {
             req.session.withFinished = !req.session.withFinished
         }
         this.showAllNotes(req, res)
