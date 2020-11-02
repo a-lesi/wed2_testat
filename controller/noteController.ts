@@ -1,5 +1,4 @@
 import {noteStore} from '../services/noteStore.js'
-import {sessionConfigurator} from "../utils/configurator";
 
 export class NotesController {
     sessionConfigurator;

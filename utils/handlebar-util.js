@@ -1,11 +1,4 @@
 export function registerHelpers(hbs) {
-    hbs.registerHelper('pretty_importance', function (importance) {
-        let prettyImportance = "";
-        for (let i = 0; i < importance; i++) {
-            prettyImportance += "*";
-        }
-        return prettyImportance;
-    });
     hbs.registerHelper('check_importance', function (importance, value) {
         return Number(importance) === value;
     });
@@ -22,8 +15,8 @@ export function registerHelpers(hbs) {
         return yyyy + '-' + mm + '-' + dd;
     });
     hbs.registerHelper('times', function (n, block) {
-        var accum = '';
-        for (var i = 0; i < n; ++i)
+        let accum = '';
+        for (let i = 0; i < n; ++i)
             accum += block.fn(i);
         return accum;
     });
