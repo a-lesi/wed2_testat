@@ -7,7 +7,7 @@ import {indexRoutes} from './routes/indexRoutes.js';
 import {registerHelpers} from './utils/handlebar-util.js'
 
 const app = express();
-app.engine('hbs', hbs.express4());
+app.engine('hbs', hbs.express4( {defaultLayout: 'views/layout.hbs'}));
 app.set('view engine', 'hbs');
 app.set('views', path.resolve('views'));
 registerHelpers(hbs);

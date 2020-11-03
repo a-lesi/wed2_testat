@@ -4,7 +4,7 @@ export class NotesController {
     sessionConfigurator;
     async createNote(req, res) {
         await noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
-        this.showAllNotes(req, res)
+        res.redirect("/");
     }
 
     async showAllNotes(req, res) {
@@ -22,7 +22,7 @@ export class NotesController {
     async setSessionInfos(req, res) {
         if (req.body.sortBy) {
             if (req.session.sortBy === req.body.sortBy) {
-                req.session.sortAscending = !req.session.sortAscending
+                req.session.sortAscending = !req.session.sortAscending;
             } else {
                 req.session.sortBy = req.body.sortBy;
                 req.session.sortAscending = true;
@@ -32,7 +32,7 @@ export class NotesController {
         } else if (req.body.showAll) {
             req.session.showAll = !req.session.showAll;
         }
-        this.showAllNotes(req, res)
+        res.redirect("/");
     }
 
     async showNote(req, res) {
@@ -45,7 +45,7 @@ export class NotesController {
 
     async editNote(req, res) {
         await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
-        this.showAllNotes(req, res)
+        res.redirect("/");
     }
 }
 

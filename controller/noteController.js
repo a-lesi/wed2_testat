@@ -12,7 +12,7 @@ export class NotesController {
     createNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
-            this.showAllNotes(req, res);
+            res.redirect("/");
         });
     }
     showAllNotes(req, res) {
@@ -48,7 +48,7 @@ export class NotesController {
             else if (req.body.showAll) {
                 req.session.showAll = !req.session.showAll;
             }
-            this.showAllNotes(req, res);
+            res.redirect("/");
         });
     }
     showNote(req, res) {
@@ -64,7 +64,7 @@ export class NotesController {
     editNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
-            this.showAllNotes(req, res);
+            res.redirect("/");
         });
     }
 }
