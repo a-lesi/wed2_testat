@@ -34,8 +34,10 @@
             <article>
                 <form action="/edit/{{this._id}}" method="get">
                     <header>
+                        <div class="title">
                         <label>{{dateFormat this.endDate}}</label>
                         <label for="text"> {{this.title}}</label>
+                        </div>
                         <div class="rating">
                             {{#times this.importance}}
                                 <span class="star"></span>

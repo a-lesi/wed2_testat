@@ -55,18 +55,16 @@ article{
 }
 
 article header {
-/*    background: #4c4c4c;*/
     color: #FFF;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
 }
-article header > label, .rating {
-    flex-grow: 1;
+
+.title > label:nth-child(2){
+    padding-left: 2rem;
 }
-article header > label:nth-of-type(2) {
-    text-align: center;
-}
+
 article header > .rating {
     text-align: right;
 }
@@ -87,12 +85,17 @@ section {
     margin-bottom: 1em;
 }
 
-@media all and (min-width: 70em) {
+.empty-message {
+    text-align: center;
+}
+
+@media all and (min-width: 40em) {
     .toolbar {
         display: flex;
-        flex-flow: row;
+        flex-flow: row wrap;
         justify-content: space-between;
     }
+
     .toolbar > form:last-child {
         margin-left:auto;
     }
