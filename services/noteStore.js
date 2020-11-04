@@ -38,31 +38,13 @@ export class NoteStore {
             return this.db.findOne({ _id: id });
         });
     }
-    allSortedByFinishDate(ascending, withFinished) {
+    getAllData(sortBy, ascending, withFinished) {
         return __awaiter(this, void 0, void 0, function* () {
             let asc = ascending ? 1 : -1;
             if (withFinished) {
-                return this.db.find({}).sort({ endDate: asc });
+                return this.db.find({}).sort({ [sortBy]: asc });
             }
-            return this.db.find({ finished: { $ne: true } }).sort({ endDate: asc });
-        });
-    }
-    allSortedByCreatedDate(ascending, withFinished) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let asc = ascending ? 1 : -1;
-            if (withFinished) {
-                return this.db.find({}).sort({ createdDate: asc });
-            }
-            return this.db.find({ finished: { $ne: true } }).sort({ createdDate: asc });
-        });
-    }
-    allSortedByImportanceDate(ascending, withFinished) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let asc = ascending ? 1 : -1;
-            if (withFinished) {
-                return this.db.find({}).sort({ importance: asc });
-            }
-            return this.db.find({ finished: { $ne: true } }).sort({ importance: asc });
+            return this.db.find({ finished: { $ne: true } }).sort({ [sortBy]: asc });
         });
     }
 }

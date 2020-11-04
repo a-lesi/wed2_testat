@@ -1,21 +1,18 @@
 import {noteStore} from '../services/noteStore.js'
 
 export class NotesController {
-    sessionConfigurator;
+    private allowedSortBy = ["finishDate", "createdDate", "importance"];
+
     async createNote(req, res) {
         await noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
         res.redirect("/");
     }
 
     async showAllNotes(req, res) {
-        if (req.session.sortBy === "finishDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
-        } else if (req.session.sortBy === "createdDate") {
-            res.render("index", {"allNotes": await noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
-        } else if (req.session.sortBy === "importance") {
-            res.render("index", {"allNotes": await noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
+        if (this.allowedSortBy.includes(req.session.sortBy)) {
+            res.render("index", {"allNotes": await noteStore.getAllData(req.session.sortBy, req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme});
         } else {
-            res.render("index", {"allNotes": await noteStore.allSortedByFinishDate(true, req.session.showAll), "altTheme": req.session.altTheme});
+            res.render("index", {"allNotes": await noteStore.getAllData("finishDate" , true, req.session.showAll), "altTheme": req.session.altTheme});
         }
     }
 
@@ -37,9 +34,9 @@ export class NotesController {
 
     async showNote(req, res) {
         if (req.params.id) {
-            res.render("createNote", {"note": await noteStore.get(req.params.id), "altTheme": req.session.altTheme});
+            res.render("note", {"note": await noteStore.get(req.params.id), "altTheme": req.session.altTheme});
         } else {
-            res.render("createNote", {"today": new Date(), "altTheme": req.session.altTheme});
+            res.render("note", {"today": new Date(), "altTheme": req.session.altTheme});
         }
     }
 

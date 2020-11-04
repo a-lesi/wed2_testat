@@ -9,6 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { noteStore } from '../services/noteStore.js';
 export class NotesController {
+    constructor() {
+        this.allowedSortBy = ["finishDate", "createdDate", "importance"];
+    }
     createNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
@@ -17,17 +20,11 @@ export class NotesController {
     }
     showAllNotes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (req.session.sortBy === "finishDate") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme });
-            }
-            else if (req.session.sortBy === "createdDate") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByCreatedDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme });
-            }
-            else if (req.session.sortBy === "importance") {
-                res.render("index", { "allNotes": yield noteStore.allSortedByImportanceDate(req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme });
+            if (this.allowedSortBy.includes(req.session.sortBy)) {
+                res.render("index", { "allNotes": yield noteStore.getAllData(req.session.sortBy, req.session.sortAscending, req.session.showAll), "altTheme": req.session.altTheme });
             }
             else {
-                res.render("index", { "allNotes": yield noteStore.allSortedByFinishDate(true, req.session.showAll), "altTheme": req.session.altTheme });
+                res.render("index", { "allNotes": yield noteStore.getAllData("finishDate", true, req.session.showAll), "altTheme": req.session.altTheme });
             }
         });
     }
@@ -54,10 +51,10 @@ export class NotesController {
     showNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             if (req.params.id) {
-                res.render("createNote", { "note": yield noteStore.get(req.params.id), "altTheme": req.session.altTheme });
+                res.render("note", { "note": yield noteStore.get(req.params.id), "altTheme": req.session.altTheme });
             }
             else {
-                res.render("createNote", { "today": new Date(), "altTheme": req.session.altTheme });
+                res.render("note", { "today": new Date(), "altTheme": req.session.altTheme });
             }
         });
     }

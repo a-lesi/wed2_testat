@@ -38,28 +38,12 @@ export class NoteStore {
         return this.db.findOne({_id: id});
     }
 
-    async allSortedByFinishDate(ascending, withFinished) {
+    async getAllData(sortBy, ascending, withFinished) {
         let asc = ascending ? 1 : -1
         if (withFinished) {
-            return this.db.find({}).sort({ endDate: asc});
+            return this.db.find({}).sort({ [sortBy]: asc});
         }
-        return this.db.find({ finished: { $ne: true }}).sort({ endDate: asc});
-    }
-
-    async allSortedByCreatedDate(ascending, withFinished) {
-        let asc = ascending ? 1 : -1
-        if (withFinished) {
-            return this.db.find({}).sort({ createdDate: asc});
-        }
-        return this.db.find({ finished: { $ne: true }}).sort({ createdDate: asc});
-    }
-
-    async allSortedByImportanceDate(ascending, withFinished) {
-        let asc = ascending ? 1 : -1
-        if (withFinished) {
-            return this.db.find({}).sort({ importance: asc});
-        }
-        return this.db.find({ finished: { $ne: true }}).sort({ importance: asc});
+        return this.db.find({ finished: { $ne: true }}).sort({ [sortBy]: asc});
     }
 }
 

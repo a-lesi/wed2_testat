@@ -4,18 +4,7 @@ export function registerHelpers(hbs) {
     })
 
     hbs.registerHelper('dateFormat', function (date) {
-        let dd: any = date.getDate();
-        let mm: any = date.getMonth()+1;
-        let yyyy: any = date.getFullYear();
-
-        if(dd<10) {
-            dd = '0' + dd;
-        }
-        if(mm<10) {
-            mm = '0' + mm;
-        }
-
-        return yyyy + '-' + mm + '-' + dd;
+        return date.toISOString().substring(0, 10);
     });
 
     hbs.registerHelper('times', function(n, block) {

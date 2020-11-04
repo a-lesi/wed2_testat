@@ -3,16 +3,7 @@ export function registerHelpers(hbs) {
         return Number(importance) === value;
     });
     hbs.registerHelper('dateFormat', function (date) {
-        let dd = date.getDate();
-        let mm = date.getMonth() + 1;
-        let yyyy = date.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-        return yyyy + '-' + mm + '-' + dd;
+        return date.toISOString().substring(0, 10);
     });
     hbs.registerHelper('times', function (n, block) {
         let accum = '';

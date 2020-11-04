@@ -29,27 +29,33 @@
     </div>
 </header>
 <main>
-    {{#each this.allNotes}}
-        <article>
-            <form action="/edit/{{this._id}}" method="get">
-                <header>
-                    <label>{{dateFormat this.endDate}}</label>
-                    <label for="text"> {{this.title}}</label>
-                    <div class="rating">
-                        {{#times this.importance}}
-                            <span class="star"></span>
-                        {{/times}}
+    {{#if this.allNotes}}
+        {{#each this.allNotes}}
+            <article>
+                <form action="/edit/{{this._id}}" method="get">
+                    <header>
+                        <label>{{dateFormat this.endDate}}</label>
+                        <label for="text"> {{this.title}}</label>
+                        <div class="rating">
+                            {{#times this.importance}}
+                                <span class="star"></span>
+                            {{/times}}
+                        </div>
+                    </header>
+                    <div class="note-content">
+                        <div>
+                            <input type="checkbox" id="finished" name="finished" disabled {{#if this.finished}} checked {{/if}}>
+                            <label for="finished"> Finished</label>
+                        </div>
+                        <textarea id="text" name="text" cols="35" rows="2" readonly>{{this.description}}</textarea>
+                        <input class="button" type="submit" value="Edit" />
                     </div>
-                </header>
-                <div class="note-content">
-                    <div>
-                        <input type="checkbox" id="finished" name="finished" disabled {{#if this.finished}} checked {{/if}}>
-                        <label for="finished"> Finished</label>
-                    </div>
-                    <textarea id="text" name="text" cols="35" rows="2" readonly>{{this.description}}</textarea>
-                    <input class="button" type="submit" value="Edit" />
-                </div>
-            </form>
-        </article>
-    {{/each}}
+                </form>
+            </article>
+        {{/each}}
+    {{else}}
+        <div class="empty-message">
+            <p>Keine Notizen vorhanden</p>
+        </div>
+    {{/if}}
 </main>
