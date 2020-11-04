@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import Datastore from 'nedb-promises';
 class Note {
-    constructor(title, description, importance, endDate, createdDate, finished = false) {
+    constructor(title, description, importance, finishDate, createdDate, finished = false) {
         this.title = title;
         this.description = description;
         this.importance = importance;
-        this.endDate = endDate;
+        this.finishDate = finishDate;
         this.createdDate = createdDate;
         this.finished = finished;
     }
@@ -22,15 +22,15 @@ export class NoteStore {
     constructor() {
         this.db = new Datastore({ filename: './data/note.db', autoload: true });
     }
-    add(title, description, importance, endDate, createdDate, finished) {
+    add(title, description, importance, finishDate, createdDate, finished) {
         return __awaiter(this, void 0, void 0, function* () {
-            let note = new Note(title, description, importance, endDate, createdDate, finished);
+            const note = new Note(title, description, importance, finishDate, createdDate, finished);
             return this.db.insert(note);
         });
     }
-    edit(id, title, description, importance, endDate, finished) {
+    edit(id, title, description, importance, finishDate, finished) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.db.update({ _id: id }, { $set: { title: title, description: description, importance: importance, endDate: endDate, finished: finished } });
+            this.db.update({ _id: id }, { $set: { title, description, importance, finishDate, finished } });
         });
     }
     get(id) {
@@ -40,7 +40,7 @@ export class NoteStore {
     }
     getAllData(sortBy, ascending, withFinished) {
         return __awaiter(this, void 0, void 0, function* () {
-            let asc = ascending ? 1 : -1;
+            const asc = ascending ? 1 : -1;
             if (withFinished) {
                 return this.db.find({}).sort({ [sortBy]: asc });
             }

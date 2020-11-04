@@ -10,7 +10,6 @@ app.engine('hbs', hbs.express4({ defaultLayout: 'views/layout.hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', path.resolve('views'));
 registerHelpers(hbs);
-const router = express.Router();
 app.use(express.static(path.resolve('public')));
 app.use(session({ secret: 'casduichasidbnuwezrfinasdcvjkadfhsuilfuzihfioda', resave: false, saveUninitialized: true }));
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -27,10 +27,10 @@
         </section>
         <section>
             <label for="todoDate">Erledigt bis:</label>
-            {{#if note.endDate}}
-                <input type="date" id="todoDate" name="endDate" value={{dateFormat note.endDate}} />
+            {{#if note.finishDate}}
+                <input type="date" id="todoDate" name="finishDate" value={{dateFormat note.finishDate}} />
             {{else}}
-                <input type="date" id="todoDate" name="endDate" value={{dateFormat this.today}} />
+                <input type="date" id="todoDate" name="finishDate" value={{dateFormat this.today}} />
             {{/if}}
         </section>
         <section>

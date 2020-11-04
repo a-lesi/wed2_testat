@@ -4,15 +4,15 @@ class Note {
     private title: string;
     private description: string;
     private importance: number;
-    private endDate: any;
+    private finishDate: any;
     private createdDate: any;
     private finished: boolean;
 
-    constructor(title, description, importance, endDate, createdDate, finished = false) {
+    constructor(title, description, importance, finishDate, createdDate, finished = false) {
         this.title = title;
         this.description = description;
         this.importance = importance;
-        this.endDate = endDate;
+        this.finishDate = finishDate;
         this.createdDate = createdDate;
         this.finished = finished;
     }
@@ -25,13 +25,13 @@ export class NoteStore {
         this.db = new Datastore({ filename: './data/note.db', autoload: true });
     }
 
-    async add(title, description, importance, endDate, createdDate, finished) {
-        let note = new Note(title, description, importance, endDate, createdDate, finished);
+    async add(title, description, importance, finishDate, createdDate, finished) {
+        const note = new Note(title, description, importance, finishDate, createdDate, finished);
         return this.db.insert(note);
     }
 
-    async edit(id, title, description, importance, endDate, finished) {
-        this.db.update({ _id: id }, { $set: { title: title, description: description, importance: importance, endDate: endDate, finished: finished}});
+    async edit(id, title, description, importance, finishDate, finished) {
+        this.db.update({ _id: id }, { $set: { title, description, importance, finishDate, finished}});
     }
 
     async get(id) {
@@ -39,7 +39,7 @@ export class NoteStore {
     }
 
     async getAllData(sortBy, ascending, withFinished) {
-        let asc = ascending ? 1 : -1
+        const asc = ascending ? 1 : -1
         if (withFinished) {
             return this.db.find({}).sort({ [sortBy]: asc});
         }

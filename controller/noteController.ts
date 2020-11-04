@@ -4,7 +4,7 @@ export class NotesController {
     private allowedSortBy = ["finishDate", "createdDate", "importance"];
 
     async createNote(req, res) {
-        await noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
+        await noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.finishDate), new Date(), req.body.finished === 'on');
         res.redirect("/");
     }
 
@@ -41,7 +41,7 @@ export class NotesController {
     }
 
     async editNote(req, res) {
-        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
+        await noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.finishDate), req.body.finished === 'on');
         res.redirect("/");
     }
 }

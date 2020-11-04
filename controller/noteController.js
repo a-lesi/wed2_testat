@@ -14,7 +14,7 @@ export class NotesController {
     }
     createNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), new Date(), req.body.finished === 'on');
+            yield noteStore.add(req.body.title, req.body.description, req.body.importance, new Date(req.body.finishDate), new Date(), req.body.finished === 'on');
             res.redirect("/");
         });
     }
@@ -60,7 +60,7 @@ export class NotesController {
     }
     editNote(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.endDate), req.body.finished === 'on');
+            yield noteStore.edit(req.params.id, req.body.title, req.body.description, req.body.importance, new Date(req.body.finishDate), req.body.finished === 'on');
             res.redirect("/");
         });
     }
