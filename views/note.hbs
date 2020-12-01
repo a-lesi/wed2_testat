@@ -9,11 +9,11 @@
     <form method="post" >
         <section>
             <label for="title">Title</label>
-            <textarea id="title" name="title">{{note.title}}</textarea>
+            <textarea id="title" name="title" required>{{note.title}}</textarea>
         </section>
         <section>
             <label for="description">Beschreibung</label>
-            <textarea id="description" name="description">{{note.description}}</textarea>
+            <textarea id="description" name="description" required>{{note.description}}</textarea>
         </section>
         <section>
             <label for="importance">Wichtigkeit</label>
@@ -28,9 +28,9 @@
         <section>
             <label for="todoDate">Erledigt bis:</label>
             {{#if note.finishDate}}
-                <input type="date" id="todoDate" name="finishDate" value={{dateFormat note.finishDate}} />
+                <input type="date" id="todoDate" name="finishDate" value={{dateFormat note.finishDate}} required/>
             {{else}}
-                <input type="date" id="todoDate" name="finishDate" value={{dateFormat this.today}} />
+                <input type="date" id="todoDate" name="finishDate" value={{dateFormat this.today}} required/>
             {{/if}}
         </section>
         <section>
